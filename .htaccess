@@ -1,0 +1,2 @@
+RewriteCond %{HTTP_HOST} ^(^.*)\.mywebsite.com
+RewriteRule (.*)  dostuff.php?username=%1
