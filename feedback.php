@@ -56,7 +56,7 @@
                }	
 	?>
 				 <button class="btn btn-primary" style="margin-top:14px;margin-left:45%;width:90px" >Send</button>
-	 		</form>
+	 		</form> 
 	</div>
     </div>
 </body>
