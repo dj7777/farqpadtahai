@@ -5,7 +5,32 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/signup.css" rel="stylesheet" type="text/css" />
 
-      
+       <script src="js/jquery-3.2.1.js"  crossorigin="anonymous"></script>
+       <script src="js/bootstrap.js"  crossorigin="anonymous"></script>
+
+       <script type="text/javascript">
+	$(document).ready(function() {
+		$('#usernameLoading').hide();
+		$('#username').keyup(function(){
+		  $('#usernameLoading').show();
+	      $.post("check.php", {
+	        username: $('#username').val()
+	      }, function(response){
+	        $('#usernameResult').fadeOut();
+	        setTimeout("finishAjax('usernameResult', '"+escape(response)+"')", 400);
+	      });
+	    	return false;
+		});
+	});
+
+	function finishAjax(id, response) {
+	  $('#usernameLoading').hide();
+	  $('#'+id).html(unescape(response));
+	  $('#'+id).fadeIn();
+	} //finishAjax
+</script>
+         
+    <script src="js/index.js"></script>
 </head>
 <body>
 
@@ -48,7 +73,7 @@
                     </div>
                   </div>
                 </form>
-                <form id="register-form" action="#" method="post" role="form" style="display: none;">
+                <form id="register-form" action="#" method="POST" role="form" style="display: none;">
                   <div class="form-group">
                     <label for="username">Email</label>
                     <input type="text" name="email" id="email" class="form-control" placeholder="Email" value="">
@@ -64,7 +89,7 @@
                    <div class="form-group">
                     <label for="username">Username</label>
                     <input type="text" name="username" id="username"  class="form-control" placeholder="Username">
-                  <span id="usernameResult"></span>
+                  <span style="color:red" id="usernameResult"></span>
                     <br>
                   </div>
                    <div class="form-group">
@@ -101,6 +126,7 @@
        			 $query= "insert into users(u_name,full_name,email,pwd,is_notif_on,dp_link,date) values 
                         ('$uname', '$name', '$email','$password', '$notification', '$photo', '$date')";
                  $result = mysqli_query($conn,$query);
+                 
         	
                }	
 	?>
@@ -118,31 +144,6 @@
         </div>
       </div>
     </div>
-    <script src="js/jquery-3.2.1.js"  crossorigin="anonymous"></script>
-       <script src="js/bootstrap.js"  crossorigin="anonymous"></script>
-
-       <script type="text/javascript">
-	$(document).ready(function() {
-		$('#usernameLoading').hide();
-		$('#username').keyup(function(){
-		  $('#usernameLoading').show();
-	      $.post("check.php", {
-	        username: $('#username').val()
-	      }, function(response){
-	        $('#usernameResult').fadeOut();
-	        setTimeout("finishAjax('usernameResult', '"+escape(response)+"')", 400);
-	      });
-	    	return false;
-		});
-	});
-
-	function finishAjax(id, response) {
-	  $('#usernameLoading').hide();
-	  $('#'+id).html(unescape(response));
-	  $('#'+id).fadeIn();
-	} //finishAjax
-</script>
-         
-    <script src="js/index.js"></script>
+   
     </body>
 </html>
