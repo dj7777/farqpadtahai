@@ -39,10 +39,37 @@
    <!-- Navigation bar ends -->
  
  <div class="container">
-	 <div class="form-horizontal col-md-7 col-md-offset-2" style="margin-top:8px">
+
+	 <div class="row form-horizontal col-md-7 col-md-offset-2" style="margin-top:8px">
 			<form method="POST"  role="form" >
-	 			<input type="text" class="form-control" name="feedback" id="feedback" style="height:100px" placeholder="Feedback" required />
-	    <?php
+	 		  <div class="col-md-12">
+            <div class="row" id="qualities">
+              <div id="goodQuality" class="col-md-6">
+                <h5>Good Qualities</h5>
+                <input type="text" class="form-control" name="good1" id="good1" placeholder="Quality 1" required />
+                <input type="text" class="form-control" name="good2" id="good2" placeholder="Quality 2" required />
+                <input type="text" class="form-control" name="good3" id="good3" placeholder="Quality 3"  />
+                <input type="text" class="form-control" name="good4" id="good4" placeholder="Quality 4"  />
+                <input type="text" class="form-control" name="good5" id="good5" placeholder="Quality 5"  />
+              </div>
+              <div id="badQuality" class="col-md-6">
+                <h5>Bad Qualities</h5>
+                <input type="text" class="form-control" name="bad1" id="bad1" placeholder="Quality 1" required />
+                <input type="text" class="form-control" name="bad2" id="bad2" placeholder="Quality 2" required />
+                <input type="text" class="form-control" name="bad3" id="bad3" placeholder="Quality 3"  />
+                <input type="text" class="form-control" name="bad4" id="bad4" placeholder="Quality 4"  />
+                <input type="text" class="form-control" name="bad5" id="bad5" placeholder="Quality 5"  />
+              </div>
+            </div>  
+             
+         </div> 
+       	<textarea type="text" class="form-control" name="feedback" id="feedback" style="height:100px" placeholder="Feedback" required ></textarea>
+	   <div class="form-group">
+                  <input type="checkbox" name="iCanHelp" id="iCanHelp" value="iCanHelp"/>
+                    <span style="display:inline-block" for="iCanHelp">I Can Help You!!</span>
+                
+                  </div>
+      <?php
 	        if(isset($_POST["feedback"]) ){
 			       
 		         $feedback= $_POST["feedback"];

@@ -5,8 +5,8 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/signup.css" rel="stylesheet" type="text/css" />
 
-       <script src="js/jquery-3.2.1.js"  crossorigin="anonymous"></script>
-       <script src="js/bootstrap.js"  crossorigin="anonymous"></script>
+  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+       <script src="js/bootstrap.min.js"  crossorigin="anonymous"></script>
 
        <script type="text/javascript">
 	$(document).ready(function() {
@@ -102,11 +102,11 @@
                   </div>
                     <div class="form-group">
                     <label for="notifications">Notifications</label>
-                    <input type="checkbox" name="notifications" id="notifications" class="form-control">
+                    <input type="checkbox" name="notifications" id="notifications">
                   </div>
                      <div class="form-group">
                     <label for="terms">I have read and accept the Terms and Conditions</label>
-                    <input type="checkbox" name="terms" id="terms" class="form-control">
+                    <input type="checkbox" name="terms" id="terms">
                   </div>
                    <?php
 	        if(isset($_POST["email"]) ){

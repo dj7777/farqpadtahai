@@ -1,3 +1,13 @@
+<?php
+	session_start();
+	if(!(isset($_SESSION['ulogin'])))
+      {
+	     if(!($_SESSION['ulogin'] == "yes")){
+			 header("location: login.php");
+			 exit();
+		 }
+      }
+	?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -11,9 +21,12 @@
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+     <script src="js/jquery-3.2.1.js"  crossorigin="anonymous"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/index.js"></script>
 
     <!-- Custom styles for this template -->
-    <link href="starter-template.css" rel="stylesheet">
+  
   </head>
 
   <body>
@@ -50,7 +63,8 @@
                 <ul>
 		<?php
 			     include("dbConnect.php");
-	$sql="select * from messages ORDER BY msg_date desc";
+           $username= $_SESSION["username"];
+	$sql="select * from messages where msg_to='$username' ORDER BY msg_date desc";
 	$query=mysqli_query($conn,$sql);
 	   
 	   while($row= mysqli_fetch_assoc($query)):	 		
@@ -68,6 +82,34 @@
 	</div>
 </div> 
 
+
+<div class="panel panel-primary" style="width:40%; margin:20px" >
+    <div class="panel-heading">
+  	<h3 class="panel-title">
+  	Good Qualities
+    </h3>    
+  </div>     
+	<div class="panel-body"  style="margin:0px; width:115%;">
+	  
+	  <div id="Main">
+      <?php 
+      $sql="select * from messages where msg_to='$username' ORDER BY msg_date desc";
+	$query=mysqli_query($conn,$sql);
+	   
+	   while($row= mysqli_fetch_assoc($query)):	 		
+     ?>
+	     <a name="poll_bar"><?php echo $row['good1'] ?> </a> <span name="poll_val">60.1% </span><br/>
+       <a name="poll_bar">Firefox</a> <span name="poll_val">23.4% </span><br/>
+       <a name="poll_bar">IE     </a> <span name="poll_val">9.8%  </span><br/>
+       <a name="poll_bar">Safari </a> <span name="poll_val">3.7%  </span><br/>
+       <a name="poll_bar">Opera  </a> <span name="poll_val">1.6%  </span><br/>
+    </div>
+    
+   
+	</div>  
+</div>
+
+
       </div>
 
     </div><!-- /.container -->
@@ -76,6 +118,6 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="js/jquery-3.2.1.js"  crossorigin="anonymous"></script>
+   
     </body>
 </html>

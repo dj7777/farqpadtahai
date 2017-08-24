@@ -57,6 +57,7 @@
                   header("location: dashboard.php");
                   //   header("location:".$username.".farqpadtahai.com/dashboard.php");
                     $_SESSION["ulogin"] = "yes";
+                    $_SESSION["username"]=$username;
                 }
                 else{
                 echo '<p class="h2" style="color:red"> Login Failed</p>';
