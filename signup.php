@@ -5,7 +5,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/signup.css" rel="stylesheet" type="text/css" />
 
-  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="js/jquery-3.2.1.js"></script>
        <script src="js/bootstrap.min.js"  crossorigin="anonymous"></script>
 
        <script type="text/javascript">
@@ -118,6 +118,7 @@
 		        $uname= $_POST["username"];
                 $photo = $_POST["photo"];
                 $notification = $_POST["notifications"];
+                
 
 		         $date = date('Y-m-d H:i:s');
 							

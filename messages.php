@@ -93,22 +93,124 @@
 	  
 	  <div id="Main">
       <?php 
-      $sql="select * from messages where msg_to='$username' ORDER BY msg_date desc";
-	$query=mysqli_query($conn,$sql);
-	   
-	   while($row= mysqli_fetch_assoc($query)):	 		
-     ?>
-	     <a name="poll_bar"><?php echo $row['good1'] ?> </a> <span name="poll_val">60.1% </span><br/>
-       <a name="poll_bar">Firefox</a> <span name="poll_val">23.4% </span><br/>
-       <a name="poll_bar">IE     </a> <span name="poll_val">9.8%  </span><br/>
-       <a name="poll_bar">Safari </a> <span name="poll_val">3.7%  </span><br/>
-       <a name="poll_bar">Opera  </a> <span name="poll_val">1.6%  </span><br/>
-    </div>
+
+
+
+  /*    SELECT goodquality1,goodquality2,goodquality3,goodquality4,goodquality5, COUNT(*) AS Total , (COUNT(*) / (SELECT COUNT(*) FROM messages WHERE msg_to='$username')) * 100 AS 'Percentage to all items', 
+FROM messages
+WHERE msg_to='$username'
+GROUP BY goodquality1; 
+
+*/
+
+/*SELECT * FROM messages
+WHERE EXISTS (SELECT goodquality1 FROM messages WHERE msg_to='$username') OR
+      EXISTS (SELECT goodquality2 FROM messages WHERE msg_to='$username') OR
+      EXISTS (SELECT goodquality3 FROM messages WHERE msg_to='$username');*/
+
+
+    /*  SELECT *
+     , CONCAT_WS('', goodquality1, goodquality2,goodquality3,goodquality4,goodquality5) AS good_quality
+  FROM messages WHERE msg_to='$username';
+*/
+      //$sql="select * from messages where msg_to='$username' ORDER BY msg_date desc";
+   /*   $sql= "SELECT goodquality1, goodquality2,goodquality3,goodquality4,goodquality5, COUNT(*) AS Total,
+        (COUNT(*) / (SELECT COUNT(*) FROM messages WHERE msg_to='$username')) * 100 AS 'Percentage1' 
+        FROM messages  WHERE msg_to='$username' GROUP BY goodquality1";
+*/
+
+  /*$sql ="SELECT *
+     , CONCAT_WS('', goodquality1, goodquality2,goodquality3,goodquality4,goodquality5) AS good_quality,
+      (COUNT(*) / ((goodquality1, goodquality2,goodquality3,goodquality4,goodquality5)  )) * 100 AS 'Percentage1'
+  FROM messages WHERE msg_to='$username' GROUP BY good_quality";*/
+
+
+  $goodsql="SELECT goodquality1 AS gquality FROM messages WHERE msg_to='$username' 
+UNION ALL
+SELECT goodquality2 AS gquality FROM messages WHERE msg_to='$username' 
+UNION ALL
+SELECT goodquality3 AS gquality FROM messages WHERE msg_to='$username'
+UNION ALL
+SELECT goodquality4 AS gquality FROM messages WHERE msg_to='$username'
+UNION ALL
+SELECT goodquality5 AS gquality FROM messages WHERE msg_to='$username'";
+
+
+$count_good=0;
+	$query=mysqli_query($conn,$goodsql);
+	   $arr =array();
+	   while($row= mysqli_fetch_assoc($query)){	
+       if(($row["gquality"] !=NULL)) {		
+        array_push($arr, $row["gquality"]);
+        $count_good++;
+       }
+     }
     
+     $t = array_count_values($arr);
+      arsort($t);
+    
+foreach ($t as $key => $value):
+     ?>
+	    <br/> <a name="poll_bar"><?php echo $key; ?> </a> <span style="margin-left:100px;" name="poll_val"><?php echo round($value/$count_good,4)*100 .' %';?> </span>
+    
+<?php
+
+endforeach;
+
+?>
+ </div>
+  
    
 	</div>  
 </div>
+<div class="panel panel-primary" style="width:40%; margin:20px" >
+    <div class="panel-heading">
+  	<h3 class="panel-title">
+  	Bad Qualities
+    </h3>    
+  </div>     
+	<div class="panel-body"  style="margin:0px; width:115%;">
+	  
+	  <div id="Main">
+<?php
+ $sql_bad="SELECT badquality1 AS bquality FROM messages WHERE msg_to='$username' 
+UNION ALL
+SELECT badquality2 AS bquality FROM messages WHERE msg_to='$username' 
+UNION ALL
+SELECT badquality3 AS bquality FROM messages WHERE msg_to='$username'
+UNION ALL
+SELECT badquality4 AS bquality FROM messages WHERE msg_to='$username'
+UNION ALL
+SELECT badquality5 AS bquality FROM messages WHERE msg_to='$username'";
 
+$count_bad=0;
+	$query_bad=mysqli_query($conn,$sql_bad);
+	   $arr_bad =array();
+	   while($row= mysqli_fetch_assoc($query_bad)){	
+       if(($row["bquality"] !=NULL)) {		
+        array_push($arr_bad, $row["bquality"]);
+        $count_bad++;
+       }
+     }
+    
+     $afterSortBad = array_count_values($arr_bad);
+      arsort($afterSortBad);
+    
+foreach ($afterSortBad as $key => $value):
+     ?>
+	    <br/> <a name="poll_bar"><?php echo $key; ?> </a> <span style="margin-left:100px;" name="poll_val"><?php echo round($value/$count_bad,4)*100 .'%';?> </span>
+    
+<?php
+
+endforeach;
+
+?>
+   
+</div>
+  
+   
+	</div>  
+</div>
 
       </div>
 

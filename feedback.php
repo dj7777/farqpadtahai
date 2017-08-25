@@ -1,3 +1,8 @@
+<?php 
+
+$msg_to= $_SERVER['SERVER_NAME'];
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,11 +78,25 @@
 	        if(isset($_POST["feedback"]) ){
 			       
 		         $feedback= $_POST["feedback"];
+             $goodquality1 = $_POST["good1"];
+             $goodquality2 = $_POST["good2"];
+             $goodquality3 = $_POST["good3"];
+             $goodquality4 = $_POST["good4"];
+             $goodquality5 = $_POST["good5"];
+
+             $badquality1 = $_POST["bad1"];
+             $badquality2 = $_POST["bad2"];
+             $badquality3 = $_POST["bad3"];
+             $badquality4 = $_POST["bad4"];
+             $badquality5 = $_POST["bad5"];
 		 $date = date('Y-m-d H:i:s');
 							
 			     include("dbConnect.php");
 			    
-       			 $query= "insert into messages(msg_data,msg_date) values ('$feedback','$date')";
+       			 $query= "insert into messages(msg_data,msg_to,msg_date,goodquality1,goodquality2,goodquality3,goodquality4,goodquality5,
+                         badquality1,badquality2,badquality3,badquality4,badquality5) values ('$feedback','$msg_to','$date','$goodquality1',
+                         '$goodquality2','$goodquality3','$goodquality4','$goodquality5','$badquality1','$badquality2',
+                          '$badquality3','$badquality4','$badquality5')";
                  $result = mysqli_query($conn,$query);
         	
                }	
